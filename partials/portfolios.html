@@ -1,0 +1,65 @@
+<div class="content">
+
+  <article class="portfolio-item group" ng-repeat="portfolio in portfolios | filter:searchFor">
+    <figure class="portfolio-image">
+      <img ng-src="{{ portfolio.imageurl }}" alt="{{ portfolio.title }}">
+    </figure>
+    <header class="portfolio-info">
+
+      <a href="index.html#/portfolio/{{portfolio.name}}">
+        <span class="title" ng-bind="portfolio.title"></span>
+      </a>
+
+      <span class="date" ng-bind="portfolio.date"></span>
+      <div class="description" ng-bind="portfolio.description"></div>
+    </header>
+  </article>
+
+  <article class="portfolio-item group" style="clear:both">
+    <header class="portfolio-info">
+      <span class="title">Add a Portfolio</span>
+
+      <form name="add_portfolio"  novalidate > <!-- ng-submit="addPortfolio()" -->
+        <p class="error" ng-show="message" >{{ message }}</p>
+
+        <input name="title" type="text" placeholder="title" ng-required="true" ng-model="adding_portfolio.title" />
+        <p class="error" ng-show="add_portfolio.title.$invalid && add_portfolio.title.$touched">Must enter a title.</p>
+
+        <input name="name" type="text" placeholder="unique name" ng-required="true" ng-model="adding_portfolio.name" />
+        <p class="error" ng-show="add_portfolio.name.$invalid && add_portfolio.name.$touched">Must enter a name.</p>
+
+        <input type="file" required="true" id="file-upload" ng-click="addImage()" />
+
+        <textarea name="description" placeholder="description" ng-required="true" ng-model="adding_portfolio.description"></textarea>
+        <p class="error" ng-show="add_portfolio.description.$invalid && add_portfolio.description.$touched">Must enter a description.</p>
+
+        <button class="btn btn-success" ng-disabled="add_portfolio.$invalid" type="button" ng-click="addPortfolio( adding_portfolio )">Add Portfolio</button>
+      </form>
+
+    </header>
+  </article>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+<p ng-show="load_error_text">{{load_error_text}}</p>
+<div ng-repeat="portfolio in portfolios" style="float:left; margin-right:12px;" >
+<h3> {{ portfolio_name }} </h3>
+<img src="/media/{{portfolio_name}}/thumb/{{portfolio.filename}}">
+
+<p> {{ portfolio.description}} </p>
+
+</div>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="portfolioApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0">
+
+  <title>Drunken Pirate Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="app/js/angular.min.js"></script>
+  <script src="app/js/angular-route.min.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/controllers/portfolioListController.js"></script>
+  <script src="app/controllers/portfolioviewcontroller.js"></script>
+  <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
+
+</head>
+
+<body>
+  <main class="wrap group">
+    <aside class="sidebar" ng-include="'includes/left-col.html'"></aside>
+    <div ng-view></div>
+  </main>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
