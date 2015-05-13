@@ -1,0 +1,51 @@
+<p ng-show="load_error_text">{{load_error_text}}</p>
+
+<div ng-repeat="portfolio in portfolios" style="float:left; margin-right:12px;" >
+
+<h3> {{portfolio_name }} </h3>
+
+
+<img src="/media/{{portfolio_name}}/thumb/{{portfolio.filename}}">
+
+<p> {{ portfolio.description}} </p>
+
+</div>
+
+<!--    *******************************************     -->
+
+
+
+<form name="update_page2"  novalidate > 
+        <p class="error" ng-show="message" >{{ message }}</p>
+
+        <input  name="image1" type="file " id = "image1" placeholder="title" ng-required="true" ng-click="addImage()" />
+
+
+        <button class="btn btn-success" ng-disabled="add_portfolio.$invalid" type="button" ng-click="addPortfolio( adding_portfolio )">Add Portfolio</button>
+</form>
+
+
+<!--
+
+        <p class="error" ng-show="message" >{{ message }}</p>
+
+        <input  name="title" type="text" placeholder="title" ng-required="true" ng-model="adding_portfolio.title" />
+        <p class="error" ng-show="add_portfolio.title.$invalid && add_portfolio.title.$dirty">Must enter a title.</p>
+
+        <input ng-value=" " name="name" type="text" placeholder="unique name" ng-required="true" ng-model="adding_portfolio.name" />
+
+        <p class="error" ng-show="add_portfolio.name.$invalid && add_portfolio.name.$dirty">Must enter a name.</p>
+
+        <input type="file" required="true" id="file-upload" ng-click="addImage()" />
+
+
+
+
+        <textarea name="description" placeholder="description" ng-required="true" ng-model="adding_portfolio.description"></textarea>
+
+        <p class="error" ng-show="add_portfolio.description.$invalid && add_portfolio.description.$dirty">Must enter a description.</p>
+
+        <button class="btn btn-success" ng-disabled="add_portfolio.$invalid" type="button" ng-click="addPortfolio( adding_portfolio )">Add Portfolio</button>
+
+    -->
+      </form>

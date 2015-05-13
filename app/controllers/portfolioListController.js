@@ -1,4 +1,9 @@
-  portfolioApp.controller("PortfolioListController", function($scope, FIREBASE_URL, $firebaseArray, $firebaseObject){
+portfolioApp.controller("PortfolioListController", 
+  function($scope, FIREBASE_URL, $firebaseArray, 
+    $firebaseObject, PortService){
+
+
+    $scope.message = "";
 
     $scope.portfolios = [];
 
@@ -6,10 +11,52 @@
     var postRef = ref.child('portfolios');
     $scope.portfolios = $firebaseArray(postRef);
 
-    console.log(postRef.key());
 
-postRef.on('value', function(snapshot){
-  console.log(snapshot.val());
+
+//$log angular log
+
+
+//    console.log(postRef.key()); // this is portfolios in firebase
+
+var portSnapshot;
+var date;
+
+
+//snapshot built into firebase
+// .on sets up monitoring
+
+
+
+//postRef.on('value', function(snapshot){
+ 
+//   console.log(snapshot.val());
+// }, function (errorObject) {
+//   console.log("The read operation failed: " + errorObject.code);
+// });
+
+
+
+postRef.once('value', function(dataSnapshot){
+
+  portSnapshot = dataSnapshot;
+  var portDate = portSnapshot.child('-JoC1gdvvWBNyCrQEpKQ').child('creationDate');
+
+var portdateVal = portDate.val();
+date = new Date(portdateVal); // javascript formats
+
+
+   //specific portfolio
+  console.log('This is portdate = ' + portDate.val()); // .val gets you a non-object string
+  console.log('This is datedate = ' + date); // .val gets you a non-object string
+ // console.log(portSnapshot.val());
+
+
+//$scope.creationDate = date; 
+// call the service:
+
+$scope.creationDate = PortService.formatDate(date); 
+
+
 }, function (errorObject) {
   console.log("The read operation failed: " + errorObject.code);
 });
@@ -25,7 +72,10 @@ var imageUpped;
 
 $scope.addImage = function( new_image ){
 
-filepicker.setKey("Ao2AL3xLQ9GAam03ar2oyz");
+
+//AQVb0IejTR9edqZ2imH0Uz
+
+filepicker.setKey("AQVb0IejTR9edqZ2imH0Uz");
 
 filepicker.pick(
   {
@@ -41,6 +91,11 @@ filepicker.pick(
     console.log(FPError.toString());
   }
 );
+
+//x = document.getElementById("file-upload").innerHTML = ;
+//console.log("filename is : " + x);
+
+
 }
 
 
@@ -57,7 +112,72 @@ filepicker.pick(
         imageurl: imageUpped 
       });
 
+      //$scope.adding_portfolio.title = "";
+      $scope.adding_portfolio = {}; //this also works to clear input
+
+      // must set each field individually, using entire form does not work
+      $scope.add_portfolio.title.$setPristine();
+      $scope.add_portfolio.name.$setPristine();
+      $scope.add_portfolio.description.$setPristine();
+      $scope.message = "Successfully added portfolio " + new_portfolio.name;
+
     };
+
+  $scope.removePortfolio = function(portname) {
+   
+    var temp = JSON.stringify(portname, null, 4);
+    var pushRef = new Firebase(FIREBASE_URL + '/portfolios');
+
+console.log("inside removePortfolio" + temp);
+
+    obj = JSON.parse(temp);
+console.log("object name is " + obj.name ); //YES this works to creat an object
+console.log("object title is " + obj.title ); //YES this works to creat an object
+console.log("object id is " + obj.$id ); //YES this works to creat an object
+
+    var myname = obj.$id;
+console.log("myname is " + myname);
+
+
+    var onComplete = function(error) {
+      if (error) {
+        console.log('Remove failed');
+      } else {
+        console.log('Remove succeeded');
+      }
+    };
+
+    pushRef.child(obj.$id).set({name: null}, onComplete);//same as delete
+
+
+
+      //*
+
+ 
+
+var count = 0;
+postRef.on("child_added", function(snap) {
+  count++;
+  console.log("added", snap.key());
+});
+
+
+
+pushRef.on("value", function(snapshot) {
+  newdata = snapshot.val();
+  console.log("snapshot val is " + snapshot.val());
+  console.log("snapshot key is " + snapshot.key());
+
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+
+
+
+//*
+
+
+    };//end removePortfolio
 
 
 
@@ -92,7 +212,7 @@ filepicker.pick(
     //   $scope.add_portfolio = {};
     // };
 
-  });
+  }); //end of controller
 
 
 

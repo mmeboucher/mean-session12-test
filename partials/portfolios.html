@@ -1,9 +1,11 @@
 <div class="content">
 
   <article class="portfolio-item group" ng-repeat="portfolio in portfolios | filter:searchFor">
+
     <figure class="portfolio-image">
       <img ng-src="{{ portfolio.imageurl }}" alt="{{ portfolio.title }}">
     </figure>
+
     <header class="portfolio-info">
 
       <a href="index.html#/portfolio/{{portfolio.name}}">
@@ -11,7 +13,14 @@
       </a>
 
       <span class="date" ng-bind="portfolio.date"></span>
+
+      <span class="date" ng-bind="creationDate"></span>
+
       <div class="description" ng-bind="portfolio.description"></div>
+
+<button ng-click='removePortfolio(portfolio)'style="margin-left: 20px; font-size:.8em;" >Delete portfolio</button>
+
+
     </header>
   </article>
 
@@ -22,16 +31,22 @@
       <form name="add_portfolio"  novalidate > <!-- ng-submit="addPortfolio()" -->
         <p class="error" ng-show="message" >{{ message }}</p>
 
-        <input name="title" type="text" placeholder="title" ng-required="true" ng-model="adding_portfolio.title" />
-        <p class="error" ng-show="add_portfolio.title.$invalid && add_portfolio.title.$touched">Must enter a title.</p>
+        <input  name="title" type="text" placeholder="title" ng-required="true" ng-model="adding_portfolio.title" />
+<!-- must use dirty not touched in conjunction with setpristine in controller -->
+        <p class="error" ng-show="add_portfolio.title.$invalid && add_portfolio.title.$dirty">Must enter a title.</p>
 
-        <input name="name" type="text" placeholder="unique name" ng-required="true" ng-model="adding_portfolio.name" />
-        <p class="error" ng-show="add_portfolio.name.$invalid && add_portfolio.name.$touched">Must enter a name.</p>
+        <input ng-value=" " name="name" type="text" placeholder="unique name" ng-required="true" ng-model="adding_portfolio.name" />
+
+        <p class="error" ng-show="add_portfolio.name.$invalid && add_portfolio.name.$dirty">Must enter a name.</p>
 
         <input type="file" required="true" id="file-upload" ng-click="addImage()" />
 
+
+
+
         <textarea name="description" placeholder="description" ng-required="true" ng-model="adding_portfolio.description"></textarea>
-        <p class="error" ng-show="add_portfolio.description.$invalid && add_portfolio.description.$touched">Must enter a description.</p>
+
+        <p class="error" ng-show="add_portfolio.description.$invalid && add_portfolio.description.$dirty">Must enter a description.</p>
 
         <button class="btn btn-success" ng-disabled="add_portfolio.$invalid" type="button" ng-click="addPortfolio( adding_portfolio )">Add Portfolio</button>
       </form>

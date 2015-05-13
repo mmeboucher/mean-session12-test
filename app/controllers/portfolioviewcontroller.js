@@ -1,10 +1,15 @@
-  portfolioApp.controller("PortfolioViewerController", function($scope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject){
+  portfolioApp.controller("PortfolioViewerController", function($scope, 
+    $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject){
   	$scope.portfolio_name = $routeParams.portfolio_name;
   	// $scope.load_error_text = "";
     var portfolio_name = $routeParams.portfolio_name;
   	var pushImg = new Firebase(FIREBASE_URL + '/images/' + portfolio_name);
 
     $scope.portfolios = $firebaseObject(pushImg);
+
+    console.log("scope portfolios is " + $scope.portfolios);
+    console.log("route params is " + portfolio_name);
+    
    //  pushImg.set({ 
 
   	// 	'vessel1309': [
