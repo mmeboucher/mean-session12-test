@@ -1,5 +1,6 @@
 portfolioApp.controller("PortfolioListController", 
   function($scope, FIREBASE_URL, $firebaseArray, 
+//    $firebaseObject){
     $firebaseObject, PortService){
 
 
@@ -9,7 +10,10 @@ portfolioApp.controller("PortfolioListController",
 
     var ref = new Firebase(FIREBASE_URL);
     var postRef = ref.child('portfolios');
+    console.log("in listcontroller postRef is " + postRef);
+
     $scope.portfolios = $firebaseArray(postRef);
+    console.log("in listcontroller scope.portfolios is " + $scope.portfolios);
 
 
 
@@ -92,9 +96,6 @@ filepicker.pick(
   }
 );
 
-//x = document.getElementById("file-upload").innerHTML = ;
-//console.log("filename is : " + x);
-
 
 }
 
@@ -123,20 +124,22 @@ filepicker.pick(
 
     };
 
+//************************************************
+
   $scope.removePortfolio = function(portname) {
    
     var temp = JSON.stringify(portname, null, 4);
     var pushRef = new Firebase(FIREBASE_URL + '/portfolios');
 
-console.log("inside removePortfolio" + temp);
+    console.log("inside removePortfolio" + temp);
 
     obj = JSON.parse(temp);
-console.log("object name is " + obj.name ); //YES this works to creat an object
-console.log("object title is " + obj.title ); //YES this works to creat an object
-console.log("object id is " + obj.$id ); //YES this works to creat an object
+    console.log("object name is " + obj.name ); //YES this works to creat an object
+    console.log("object title is " + obj.title ); //YES this works to creat an object
+    console.log("object id is " + obj.$id ); //YES this works to creat an object
 
     var myname = obj.$id;
-console.log("myname is " + myname);
+    console.log("myname is " + myname);
 
 
     var onComplete = function(error) {
@@ -148,8 +151,6 @@ console.log("myname is " + myname);
     };
 
     pushRef.child(obj.$id).set({name: null}, onComplete);//same as delete
-
-
 
       //*
 

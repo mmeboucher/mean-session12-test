@@ -23,10 +23,14 @@ var myObject = {
 	dateResult = ( day + ' ' + monthNames[monthIndex] + ' ' + year);
 	console.log("dateResult = " + dateResult);
 	return dateResult;
+	
 
 
 }};//myObject
 
 return myObject;
 
+
+
 }]);
+
